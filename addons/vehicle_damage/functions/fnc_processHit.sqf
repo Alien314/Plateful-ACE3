@@ -39,9 +39,15 @@ if (_newDamage >= 15) exitWith {
     [_vehicle, 1] call FUNC(handleDetonation);
     // kill everyone inside for very insane damage
     {
+		private _aceMedLoaded = isClass(configFile >> "CfgPatches" >> "ace_medical_engine");
+	    private _APSLoaded = isClass(configFile >> "CfgPatches" >> "APS_system");
+	  if (_aceMedLoaded || {!_APSLoaded}) then {
         _x setDamage 1;
         _x setVariable [QEGVAR(medical,lastDamageSource), _injurer];
         _x setVariable [QEGVAR(medical,lastInstigator), _injurer];
+	  } else {
+		  [_x, _newDamage, "", _injurer] call diw_armor_plates_main_fnc_receiveDamage;
+	  };
     } forEach crew _vehicle;
     _vehicle setDamage 1;
     _return = false;
