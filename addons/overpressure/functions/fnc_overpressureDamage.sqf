@@ -62,7 +62,21 @@ TRACE_3("cache",_overpressureAngle,_overpressureRange,_overpressureDamage);
                 if (["ACE_Medical"] call EFUNC(common,isModLoaded)) then {
                     [_x, _damage, "body", "backblast", _firer] call EFUNC(medical,addDamageToUnit);
                 } else {
-                    _x setDamage (damage _x + _damage);
+				  if (GVAR(APSLoaded) && {GVAR(APSBackblast) < 4}) then {
+				    [_x, _damage, "", _firer] call diw_armor_plates_main_fnc_receiveDamage;
+				    if (GVAR(APSBackblast) == 0) exitWith {};
+				    if (GVAR(APSBackblast) == 2 && {lifeState _x isEqualTo "INCAPACITATED"}) exitWith {
+				      _x setDamage 1};
+				    if (GVAR(APSBackblast) == 3 && {damage _x > 0.94} || {!(side _firer isEqualTo side _x)}) then {_x setDamage 1};
+				  } else { _x setDamage (damage _x + _damage);
+			        [_x, _firer]  spawn { params ["_affected", _firer];
+						sleep 0.5;
+						if (alive _affected && {GVAR(APSLoaded)}) then {
+							_affected setVariable ["diw_armor_plates_main_hp", linearConversion [1, 0, damage _affected, 0,_affected getVariable ["diw_armor_plates_main_maxHp",[diw_armor_plates_main_maxAiHP, diw_armor_plates_main_maxPlayerHP] select (isPlayer _unit)], true], true ];
+							_affected call diw_armor_plates_main_fnc_updateHPUi;
+						};
+					};
+				  };
                 };
             };
 

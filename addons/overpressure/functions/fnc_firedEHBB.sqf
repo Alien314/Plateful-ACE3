@@ -56,7 +56,21 @@ if (_distance < _backblastRange) then {
     } else {
         TRACE_1("",isDamageAllowed _unit);
         if (!isDamageAllowed _unit) exitWith {}; // Skip damage if not allowed
-        _unit setDamage (damage _unit + _damage);
+		if (GVAR(APSLoaded) && {GVAR(APSBackblast) < 4}) then {
+			[_unit, _damage, "", _unit] call diw_armor_plates_main_fnc_receiveDamage;
+		    if (GVAR(APSBackblast) == 0) exitWith {};
+	        if (GVAR(APSBackblast) == 2 && {lifeState _unit isEqualTo "INCAPACITATED"}) exitWith {
+				_unit setDamage 1};
+		    if (GVAR(APSBackblast) == 3 && {damage _unit > 0.94}) then {_unit setDamage 1};
+		} else { _unit setDamage (damage _unit + _damage); 
+			[_unit]  spawn { params ["_unit"];
+			    sleep 0.5;
+			    if (alive _unit && {GVAR(APSLoaded)}) then {
+					_unit setVariable ["diw_armor_plates_main_hp", linearConversion [0.95, 0, damage _unit, 0,_unit getVariable ["diw_armor_plates_main_maxHp",[diw_armor_plates_main_maxAiHP, diw_armor_plates_main_maxPlayerHP] select (isPlayer _unit)], true], true ];
+					_unit call diw_armor_plates_main_fnc_updateHPUi;
+			    };
+			};
+	    };
     };
 };
 

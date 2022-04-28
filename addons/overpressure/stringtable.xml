@@ -70,5 +70,26 @@
             <Spanish>Ángulo del cono de fuego</Spanish>
             <Korean>후폭풍 각도</Korean>
         </Key>
+        <Key ID="STR_ACE_Overpressure_APSBackblast_displayName">
+            <English>(APS)Allow backblast through plates</English>
+        </Key>
+        <Key ID="STR_ACE_Overpressure_APSBackblast_toolTip">
+            <English>Whether backblast can kill downed players or without downing first when dropping health to 0.</English>
+        </Key>
+        <Key ID="STR_ACE_Overpressure_APSBackblast_setDowns">
+            <English>Downs only</English>
+        </Key>
+        <Key ID="STR_ACE_Overpressure_APSBackblast_setPvP">
+            <English>Finish/kill enemy players</English>
+        </Key>
+        <Key ID="STR_ACE_Overpressure_APSBackblast_setKillDown">
+            <English>Finish downed players</English>
+        </Key>
+        <Key ID="STR_ACE_Overpressure_APSBackblast_setKill">
+            <English>Always allow instant kill</English>
+        </Key>
+        <Key ID="STR_ACE_Overpressure_APSBackblast_setNoPlates">
+            <English>Ignore plate hp and downs system</English>
+        </Key>
     </Package>
 </Project>
