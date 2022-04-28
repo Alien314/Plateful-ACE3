@@ -68,9 +68,9 @@ if (_smokeDelayEnabled) then {
             [QGVAR(cleanupEffects), [_vehicle, _smokeEffects]] call CBA_fnc_globalEvent;
             _vehicle setVariable [QGVAR(isCookingOff), false, true];
             [_pfh] call CBA_fnc_removePerFrameHandler;
-
-            if (_detonateAfterCookoff) then {
-                _vehicle setDamage 1;
+            // Credit: Zlusken, https://github.com/acemod/ACE3/pull/8734
+            if (GVAR(destroyVehicleAfterCookoff) || {_detonateAfterCookoff}) then {
+                _vehicle setDamage [1, _detonateAfterCookoff];
             };
         };
 

@@ -18,6 +18,17 @@
     false // Needs mission restart
 ] call CBA_fnc_addSetting;
 
+// Credit: Zlusken, https://github.com/acemod/ACE3/pull/8734
+[
+    QGVAR(destroyVehicleAfterCookoff), "CHECKBOX",
+    [LSTRING(destroyVehicleAfterCookoff_name), LSTRING(destroyVehicleAfterCookoff_tooltip)],
+    LSTRING(category_displayName),
+    false, // default value
+    true, // isGlobal
+    {[QGVAR(destroyVehicleAfterCookoff), _this] call EFUNC(common,cbaSettings_settingChanged)},
+    false // Needs mission restart
+] call CBA_fnc_addSetting;
+
 [
     QGVAR(enableAmmoCookoff), "CHECKBOX",
     [LSTRING(enableAmmoCookoff_name), LSTRING(enableAmmoCookoff_tooltip)],
