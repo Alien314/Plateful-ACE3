@@ -16,7 +16,14 @@
 #endif
 
 #include "\z\ace\addons\main\script_macros.hpp"
-#include "\z\ace\addons\medical_engine\script_macros_medical.hpp"
+
+//#include "\z\ace\addons\medical_engine\script_macros_medical.hpp"
+#define VAR_PAIN              QEGVAR(medical,pain)
+#define VAR_PAIN_SUPP         QEGVAR(medical,painSuppress)
+
+#define GET_PAIN(unit)              (unit getVariable [VAR_PAIN, 0])
+#define GET_PAIN_SUPPRESS(unit)     (unit getVariable [VAR_PAIN_SUPP, 0])
+#define GET_PAIN_PERCEIVED(unit)    (0 max (GET_PAIN(unit) - GET_PAIN_SUPPRESS(unit)) min 1)
 
 #define FIRE_MANAGER_PFH_DELAY 0.25
 #define FLARE_SIZE_MODIFIER 5

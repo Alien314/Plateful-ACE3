@@ -38,3 +38,14 @@
     false // isGlobal
 ] call CBA_fnc_addSetting;
 
+[
+    QGVAR(fireMult), "SLIDER",
+    [LSTRING(Setting_NonMedBurnMult), LSTRING(Setting_NonMedBurnMult_Description)],
+    LSTRING(Category_DisplayName),
+    [0, 10, 0.5, 2, false],
+    true,
+    {[QGVAR(fireMult), _this, true] call EFUNC(common,cbaSettings_settingChanged)}
+] call CBA_fnc_addSetting;
+
+GVAR(aceMedLoaded) = isClass(configFile >> "CfgPatches" >> "ace_medical_engine");
+GVAR(APSLoaded) = isClass(configFile >> "CfgPatches" >> "APS_system");

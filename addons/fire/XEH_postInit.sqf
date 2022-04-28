@@ -35,3 +35,8 @@
         GVAR(fireSources) = [[], nil] call CBA_fnc_hashCreate;
     };
 }] call CBA_fnc_addEventHandler;
+
+["CAManBase", "InitPost", {
+        params ["_unit"];
+        _unit call FUNC(patDownActions);
+    }, true, [], true] call CBA_fnc_addClassEventHandler;

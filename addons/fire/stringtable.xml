@@ -97,5 +97,11 @@
             <Korean>유닛이 불에 붙이면 무기를 떨굴지를 결정합니다.</Korean>
             <German>Steuert, ob Einheiten ihre Waffen fallen lassen, wenn sie brennen.</German>
         </Key>
+        <Key ID="STR_ACE_Fire_Setting_NonMedBurnMult">
+            <English>Burn Damage Multiplier(Non-ACE Med)</English>
+        </Key>
+        <Key ID="STR_ACE_Fire_Setting_NonMedBurnMult_Description">
+            <English>Burn damage multiplier no effect when using ACE Med (Default: 0.5)</English>
+        </Key>
     </Package>
 </Project>
