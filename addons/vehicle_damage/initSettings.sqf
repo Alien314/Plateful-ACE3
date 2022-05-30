@@ -27,3 +27,6 @@
     {[QGVAR(enableCarDamage), _this] call EFUNC(common,cbaSettings_settingChanged)},
     true // Needs mission restart
 ] call CBA_settings_fnc_init;
+
+GVAR(aceMedLoaded) = isClass(configFile >> "CfgPatches" >> "ace_medical_engine");
+GVAR(APSLoaded) = isClass(configFile >> "CfgPatches" >> "diw_armor_plates_main");

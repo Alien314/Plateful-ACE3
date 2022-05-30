@@ -48,4 +48,4 @@
 ] call CBA_fnc_addSetting;
 
 GVAR(aceMedLoaded) = isClass(configFile >> "CfgPatches" >> "ace_medical_engine");
-GVAR(APSLoaded) = isClass(configFile >> "CfgPatches" >> "APS_system");
+GVAR(APSLoaded) = isClass(configFile >> "CfgPatches" >> "diw_armor_plates_main");

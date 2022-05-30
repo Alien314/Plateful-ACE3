@@ -61,10 +61,8 @@ private _injuryCount = 0;
             private _indexCount = count _crewInjuryIndices;
             if (_indexCount >= 0) then {
                 _crewInjuryIndices deleteAt _indexToInjure;
-
-				private _aceMedLoaded = isClass(configFile >> "CfgPatches" >> "ace_medical_engine");
 				
-				if (_aceMedLoaded) then {
+				if (GVAR(aceMedLoaded)) then {
                 // arbitrary percentages
                 private _injuredBodyPart = ["Head", "Body", "LeftArm", "RightArm", "LeftLeg", "RightLeg"] selectRandomWeighted [0.3, 0.8, 0.5, 0.5, 0.3, 0.3];
                 private _currentUnitDamage = _casualty getHitpointDamage _injuredBodyPart;
@@ -75,8 +73,7 @@ private _injuryCount = 0;
 					private _injuredBodyPart = selectRandom ["Face", "Neck", "Head", "Pelvis", "Abdomen", "Diaphragm", "Chest", "Arms", "Hands", "Legs"];
 					private _currentUnitDamage = _casualty getHitpointDamage _injuredBodyPart;
 					private _damageAmount = (_currentUnitDamage + random 1.8) max (_currentUnitDamage + 0.1);
-					private _APSLoaded = isClass(configFile >> "CfgPatches" >> "APS_system");
-					if (_APSLoaded) then {
+					if (GVAR(APSLoaded)) then {
 						[_x, _damageAmount, _woundSelection, _source] call diw_armor_plates_main_fnc_receiveDamage;
 					} else {
 					private _newDamage = (_x getHitPointDamage ("hit"+_woundSelection) + _damageAmount);

@@ -39,9 +39,7 @@ if (_newDamage >= 15) exitWith {
     [_vehicle, 1] call FUNC(handleDetonation);
     // kill everyone inside for very insane damage
     {
-		private _aceMedLoaded = isClass(configFile >> "CfgPatches" >> "ace_medical_engine");
-	    private _APSLoaded = isClass(configFile >> "CfgPatches" >> "APS_system");
-	  if (_aceMedLoaded || {!_APSLoaded}) then {
+	  if (GVAR(aceMedLoaded) || {!(GVAR(APSLoaded))}) then {
         _x setDamage 1;
         _x setVariable [QEGVAR(medical,lastDamageSource), _injurer];
         _x setVariable [QEGVAR(medical,lastInstigator), _injurer];

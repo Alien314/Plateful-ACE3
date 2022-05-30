@@ -8,7 +8,7 @@ private _category = [LELSTRING(common,categoryUncategorized), LLSTRING(DisplayNa
     1
 ] call CBA_fnc_addSetting;
 
-GVAR(APSLoaded) = isClass(configFile >> "CfgPatches" >> "APS_system");
+GVAR(APSLoaded) = isClass(configFile >> "CfgPatches" >> "diw_armor_plates_main");
 if (GVAR(APSLoaded)) then {
 [
 	QGVAR(APSBackblast), "LIST",
@@ -19,3 +19,5 @@ if (GVAR(APSLoaded)) then {
 	{[QGVAR(APSBackblast), _this, true] call EFUNC(common,cbaSettings_settingChanged)}
 ] call CBA_fnc_addSetting;
 };
+
+GVAR(aceMedLoaded) = isClass(configFile >> "CfgPatches" >> "ace_medical_engine");
