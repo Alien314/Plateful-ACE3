@@ -28,5 +28,15 @@
     true // Needs mission restart
 ] call CBA_settings_fnc_init;
 
+[
+    QGVAR(turretPop), "CHECKBOX",
+    ["Enable Tank turret pop", "Tank turrets have a chance of popping off after destruction(Advanced vic damage not required)."],
+    LSTRING(category_displayName),
+    false, // default value
+    true, // isGlobal
+    {[QGVAR(turretPop), _this] call EFUNC(common,cbaSettings_settingChanged)},
+    false // Needs mission restart
+] call CBA_settings_fnc_init;
+
 GVAR(aceMedLoaded) = isClass(configFile >> "CfgPatches" >> "ace_medical_engine");
 GVAR(APSLoaded) = isClass(configFile >> "CfgPatches" >> "diw_armor_plates_main");

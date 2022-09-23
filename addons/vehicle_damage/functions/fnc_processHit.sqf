@@ -39,13 +39,16 @@ if (_newDamage >= 15) exitWith {
     [_vehicle, 1] call FUNC(handleDetonation);
     // kill everyone inside for very insane damage
     {
-	  if (GVAR(aceMedLoaded) || {!(GVAR(APSLoaded))}) then {
-        _x setDamage 1;
+      if (GVAR(aceMedLoaded) || {!(GVAR(APSLoaded))}) then {
+        _x setHitPointDamage ["hitHead", 1, true, _injurer];
         _x setVariable [QEGVAR(medical,lastDamageSource), _injurer];
         _x setVariable [QEGVAR(medical,lastInstigator), _injurer];
-	  } else {
-		  [_x, _newDamage, "", _injurer] call diw_armor_plates_main_fnc_receiveDamage;
-	  };
+      } else {
+          private _fragLoaded = isClass(configFile >> "CfgPatches" >> "ace_frag");
+          private _ammo = (["B_65x39_Caseless","ace_frag_huge"] select _fragLoaded);
+          [QGVAR(plateDamage), [_x, _newDamage, "", _injurer, _ammo], _x] call CBA_fnc_targetEvent;
+          //[_x, _newDamage, "", _injurer, _ammo] remoteExec ["diw_armor_plates_main_fnc_receiveDamage", _x];
+      };
     } forEach crew _vehicle;
     _vehicle setDamage 1;
     _return = false;
@@ -72,6 +75,8 @@ if (_minDamage < 0) then {
 private _ammoEffectiveness = 0;
 private _projectileExplosive = [_projectileConfig >> "explosive", "NUMBER", 0] call CBA_fnc_getConfigEntry;
 private _indirectHit = [_projectileConfig >> "indirectHit", "NUMBER", 0] call CBA_fnc_getConfigEntry;
+
+if (_warheadType isNotEqualTo WARHEAD_TYPE_AP && {_indirectHit == 0 && {_incendiary == 0}}) exitWith { };
 
 if (_warheadType isEqualTo WARHEAD_TYPE_AP) then {
     // change damage based on projectile speed (doesn't do this in vanilla ARMA believe it or not)
@@ -144,6 +149,8 @@ switch (_warheadType) do {
     };
 };
 _injuryChance = _injuryChance * _penChance;
+
+if (_warheadType isNotEqualTo WARHEAD_TYPE_AP && _indirectHit == 0) then { _injuryChance = 0;};
 
 private _currentVehicleAmmo = [_vehicle] call EFUNC(cookoff,getVehicleAmmo);
 private _chanceOfDetonation = 0;
@@ -229,6 +236,7 @@ switch (_hitArea) do {
         private _hash = _vehicle getVariable [QGVAR(hitpointHash), []];
         private _hashKeys = [_hash] call CBA_fnc_hashKeys;
 
+        if (_indirectHit == 0) exitWith {};
         // 25% chance of jamming turret - 25% of mobility kill - 25% of both - 75% chance of critical hull damage
         private _rand = random 1;
         TRACE_2("rolling hull damage",_ammoEffectiveness,_rand);
@@ -335,7 +343,8 @@ switch (_hitArea) do {
         TRACE_2("damaged fuel",_chanceOfFire,_cookoffIntensity);
 
         if (_isCar) then {
-            _chanceOfFire = 0; // no cookoff for cars
+            _chanceOfFire = _chanceOfFire * 2;
+            _cookoffIntensity = 1.5; // cars can cookoff a little bit if fuel hit // no cookoff for cars
         };
 
         [_vehicle, _chanceOfFire, _cookoffIntensity, _injurer, "", false] call FUNC(handleCookoff);

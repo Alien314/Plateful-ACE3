@@ -249,7 +249,7 @@ if (_isBurning) exitWith {};
 							[_unit, _burnDamage, _woundSelection, _instigator] call diw_armor_plates_main_fnc_receiveDamage;
 						} else {
 							private _newDamage = (_unit getHitPointDamage ("hit"+_woundSelection) + _burnDamage);
-							_unit setHitPointDamage [("hit"+_woundSelection), _newDamage]; };
+							_unit setHitPointDamage [("hit"+_woundSelection), _newDamage, true, _instigator]; };
 					};
                 };
                 _unit setVariable [QGVAR(intensity), _intensity, true]; // globally sync intensity across all clients to make sure simulation is deterministic

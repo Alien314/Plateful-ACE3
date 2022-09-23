@@ -27,21 +27,24 @@ if (_vehicleAmmo isEqualTo []) then {
 
 if ((_vehicleAmmo select 1) > 0) then {
     {
-        // random amount of injuries		
-		  if (GVAR(aceMedLoaded)) then {
+        // random amount of injuries        
+          if (GVAR(aceMedLoaded)) then {
             for "_i" from 0 to random 5 do {
-                [_x, random 1, selectRandom ["Head", "Body", "LeftArm", "RightArm", "LeftLeg", "RightLeg"], selectRandom ["bullet", "shell", "explosive"], _injurer] call EFUNC(medical,addDamageToUnit); 
-            };		    
-		  } else {
+                [_x, (random 1), selectRandom ["Head", "Body", "LeftArm", "RightArm", "LeftLeg", "RightLeg"], selectRandom ["bullet", "shell", "explosive"], _injurer] call EFUNC(medical,addDamageToUnit); 
+            };          
+          } else {
             for "_i" from 0 to random 5 do {
             private _woundSelection = selectRandom ["Face", "Neck", "Head", "Pelvis", "Abdomen", "Diaphragm", "Chest", "Arms", "Hands", "Legs"];
-		    if (GVAR(APSLoaded)) then {
-                [_x, random 1, _woundSelection, _injurer] call diw_armor_plates_main_fnc_receiveDamage;
+            if (GVAR(APSLoaded)) then {
+                private _fragLoaded = isClass(configFile >> "CfgPatches" >> "ace_frag");
+                private _ammo = (["B_65x39_Caseless","ace_frag_small"] select _fragLoaded);
+                [QGVAR(plateDamage), [_x, (random 1), _woundSelection, _injurer, _ammo], _x] call CBA_fnc_targetEvent;
+                //[_x, random 1, _woundSelection, _injurer,_ammo] remoteExec ["diw_armor_plates_main_fnc_receiveDamage", _x];
             } else {
-				private _newDamage = (_x getHitPointDamage ("hit"+_woundSelection) + (random 1));
-				_x setHitPointDamage [("hit"+_woundSelection), _newDamage]; };
-			};
-		  };
-			
+                private _newDamage = (_x getHitPointDamage ("hit"+_woundSelection) + (random 1));
+                _x setHitPointDamage [("hit"+_woundSelection), _newDamage, true, _injurer]; };
+            };
+          };
+            
     } forEach crew _vehicle;
 };

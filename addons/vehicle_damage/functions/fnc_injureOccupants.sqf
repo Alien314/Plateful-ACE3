@@ -61,24 +61,27 @@ private _injuryCount = 0;
             private _indexCount = count _crewInjuryIndices;
             if (_indexCount >= 0) then {
                 _crewInjuryIndices deleteAt _indexToInjure;
-				
-				if (GVAR(aceMedLoaded)) then {
+                
+                if (GVAR(aceMedLoaded)) then {
                 // arbitrary percentages
                 private _injuredBodyPart = ["Head", "Body", "LeftArm", "RightArm", "LeftLeg", "RightLeg"] selectRandomWeighted [0.3, 0.8, 0.5, 0.5, 0.3, 0.3];
                 private _currentUnitDamage = _casualty getHitpointDamage _injuredBodyPart;
                 private _damageAmount = (_currentUnitDamage + random 1.8) max (_currentUnitDamage + 0.1);
 
-                [_casualty, _damageAmount, _injuredBodyPart, "shell", _source] call EFUNC(medical,addDamageToUnit);		    
-				  } else {
-					private _injuredBodyPart = selectRandom ["Face", "Neck", "Head", "Pelvis", "Abdomen", "Diaphragm", "Chest", "Arms", "Hands", "Legs"];
-					private _currentUnitDamage = _casualty getHitpointDamage _injuredBodyPart;
-					private _damageAmount = (_currentUnitDamage + random 1.8) max (_currentUnitDamage + 0.1);
-					if (GVAR(APSLoaded)) then {
-						[_x, _damageAmount, _woundSelection, _source] call diw_armor_plates_main_fnc_receiveDamage;
-					} else {
-					private _newDamage = (_x getHitPointDamage ("hit"+_woundSelection) + _damageAmount);
-					_x setHitPointDamage [("hit"+_woundSelection), _newDamage]; };
-				  };
+                [_casualty, _damageAmount, _injuredBodyPart, "shell", _source] call EFUNC(medical,addDamageToUnit);         
+                  } else {
+                    private _injuredBodyPart = ["Face", "Neck", "Head", "Pelvis", "Abdomen", "Diaphragm", "Chest", "Arms", "Hands", "Legs"] selectRandomWeighted [0.1,0.1,0.1, 0.1,0.2,0.1,0.4, 0.85, 0.15, 0.6];
+                    private _currentUnitDamage = _casualty getHitpointDamage _injuredBodyPart;
+                    private _damageAmount = (_currentUnitDamage + random 1.8) max (_currentUnitDamage + 0.1);
+                    if (GVAR(APSLoaded)) then {
+                        private _fragLoaded = isClass(configFile >> "CfgPatches" >> "ace_frag");
+                        private _ammo = (["B_65x39_Caseless","ace_frag_small"] select _fragLoaded);
+                        [QGVAR(plateDamage), [_x, _damageAmount, _injuredBodyPart, _source, _ammo], _x] call CBA_fnc_targetEvent;
+                        //[_x, _damageAmount, _injuredBodyPart, _source, _ammo] remoteExec ["diw_armor_plates_main_fnc_receiveDamage", _x];
+                    } else {
+                        _x setHitPointDamage [("hit"+_injuredBodyPart), _damageAmount, true, _source];
+                    };
+                  };
             };
         };
     };

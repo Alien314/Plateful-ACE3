@@ -1,4 +1,16 @@
 #include "script_component.hpp"
+        // blow off turret effect
+        /*
+        Disabled temporarily due to issues with being able to repair tanks after death. Needs work
+        */
+        ["Tank", "killed", { params ["_vehicle"];
+            if (GVAR(turretPop) && {random 1 < 0.15}) then {
+                _vehicle call FUNC(blowOffTurret);
+                [{ params ["_vehicle"];
+                  _vehicle enableSimulationGlobal false;
+                }, _vehicle, 6] call CBA_fnc_waitAndExecute;
+            };
+        }, true, [], true] call CBA_fnc_addClassEventHandler;
 
 ["ace_settingsInitialized", {
     TRACE_1("settings init",GVAR(enabled));
@@ -29,16 +41,6 @@
             ["Car", "init", LINKFUNC(addEventHandler), true, [], true] call CBA_fnc_addClassEventHandler;
         };
 
-        // blow off turret effect
-        /*
-        Disabled temporarily due to issues with being able to repair tanks after death. Needs work
-        */
-        /*["Tank", "killed", {
-            if (random 1 < 0.15) then {
-                (_this select 0) call FUNC(blowOffTurret);
-            };
-        }, true, [], true] call CBA_fnc_addClassEventHandler;*/
-
         // event to add a turret to a curator if the vehicle already belonged to that curator
         if (isServer) then {
             [QGVAR(addTurretToEditable), {
@@ -50,6 +52,9 @@
             }] call CBA_fnc_addEventHandler;
         };
     };
+    [QGVAR(plateDamage), {
+        _this call diw_armor_plates_main_fnc_receiveDamage;
+    }] call CBA_fnc_addEventHandlerArgs;
 
     // init eject from destroyed vehicle
     {
