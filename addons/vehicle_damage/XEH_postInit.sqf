@@ -41,6 +41,10 @@
             ["Car", "init", LINKFUNC(addEventHandler), true, [], true] call CBA_fnc_addClassEventHandler;
         };
 
+ /*       if (GVAR(enableAirDamage)) then {
+            ["Air", "init", LINKFUNC(addEventHandler), true, [], true] call CBA_fnc_addClassEventHandler;
+        };*/
+
         // event to add a turret to a curator if the vehicle already belonged to that curator
         if (isServer) then {
             [QGVAR(addTurretToEditable), {

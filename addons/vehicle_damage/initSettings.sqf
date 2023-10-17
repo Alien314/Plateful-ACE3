@@ -28,6 +28,16 @@
     true // Needs mission restart
 ] call CBA_settings_fnc_init;
 
+/*[
+    QGVAR(enableAirDamage), "CHECKBOX",
+    [LSTRING(airDamage_setting_enable), LSTRING(airDamage_setting_description)],
+    LSTRING(category_displayName),
+    false, // default value
+    true, // isGlobal
+    {[QGVAR(enableAirDamage), _this] call EFUNC(common,cbaSettings_settingChanged)},
+    true // Needs mission restart
+] call CBA_settings_fnc_init;*/
+
 [
     QGVAR(turretPop), "CHECKBOX",
     ["Enable Tank turret pop", "Tank turrets have a chance of popping off after destruction(Advanced vic damage not required)."],
