@@ -29,9 +29,24 @@ class CfgVehicles {
                 statement = "";
                 icon = "\a3\ui_f\data\IGUI\Cfg\Actions\eject_ca.paa";
                 selection = "";
+                class GVAR(buryBodyBag) {
+                    displayName = CSTRING(DigGrave);
+                    condition = QUOTE([ARR_2(_this#1, _this#0)] call FUNC(canDigGrave));
+                    statement = QUOTE(_this call FUNC(placeBodyBagInGrave));
+                    icon = QPATHTOEF(medical_gui,ui\grave.paa);
+                };
             };
         };
     };
+
+    // Grave vehicle
+    class Land_Grave_dirt_F;
+    class ACE_Grave: Land_Grave_dirt_F {
+        model = QPATHTOF(data\ACE_grave.p3d);
+        hiddenSelections[] = {"camo"};
+        hiddenSelectionsTextures[] = {QPATHTOF(data\Grave_co.paa)};
+    };
+
 
     // Medical litter classes
     class Thing;
@@ -77,6 +92,9 @@ class CfgVehicles {
     };
     class ACE_MedicalLitter_splint: ACE_MedicalLitterBase {
         model = QPATHTOF(data\littergeneric_splint.p3d);
+    };
+    class ACE_MedicalLitter_suture: ACE_MedicalLitterBase {
+        model = QPATHTOF(data\littergeneric_suture.p3d);
     };
 
     // Treatment items
@@ -230,6 +248,16 @@ class CfgVehicles {
         vehicleClass = "Items";
         class TransportItems {
             MACRO_ADDITEM(ACE_surgicalKit,1);
+        };
+    };
+    class ACE_sutureItem: Item_Base_F {
+        scope = 2;
+        scopeCurator = 2;
+        displayName = CSTRING(Suture_Display);
+        author = ECSTRING(common,ACETeam);
+        vehicleClass = "Items";
+        class TransportItems {
+            MACRO_ADDITEM(ACE_suture,1);
         };
     };
     class ACE_bodyBagItem: Item_Base_F {

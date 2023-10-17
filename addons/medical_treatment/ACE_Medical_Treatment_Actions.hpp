@@ -83,6 +83,7 @@ class GVAR(actions) {
         condition = QUOTE(!([ARR_2(_patient,_bodyPart)] call FUNC(hasTourniquetAppliedTo)));
         callbackSuccess = QFUNC(tourniquet);
         litter[] = {};
+        allowedUnderwater = 1;
     };
     class RemoveTourniquet: ApplyTourniquet {
         displayName = CSTRING(Actions_RemoveTourniquet);
@@ -90,6 +91,7 @@ class GVAR(actions) {
         items[] = {};
         condition = QUOTE([ARR_2(_patient,_bodyPart)] call FUNC(hasTourniquetAppliedTo));
         callbackSuccess = QFUNC(tourniquetRemove);
+        allowedUnderwater = 1;
     };
 
     // - Splint ---------------------------------------------------------------
@@ -251,6 +253,16 @@ class GVAR(actions) {
         consumeItem = 1;
         litter[] = {};
     };
+    class Grave: BodyBag {
+        displayName = CSTRING(DigGrave);
+        displayNameProgress = CSTRING(DiggingGrave);
+        icon = QPATHTOEF(medical_gui,ui\grave.paa);
+        treatmentTime = QGVAR(treatmentTimeGrave);
+        condition = QFUNC(canDigGrave);
+        callbackSuccess = QFUNC(placeInGrave);
+        items[] = {};
+        consumeItem = 0;
+    };
     class CPR: BasicBandage {
         displayName = CSTRING(Actions_CPR);
         displayNameProgress = CSTRING(Actions_PerformingCPR);
@@ -286,8 +298,9 @@ class GVAR(actions) {
         treatmentTime = QFUNC(getStitchTime);
         condition = QFUNC(canStitch);
         callbackSuccess = "";
+        callbackStart = QFUNC(surgicalKitStart);
         callbackProgress = QFUNC(surgicalKitProgress);
-        consumeItem = QGVAR(consumeSurgicalKit);
+        consumeItem = QGVAR(consumeSurgicalKit); // setting can be 0,1,2 - only 1 will consume items[]
         animationMedic = "AinvPknlMstpSnonWnonDnon_medic1";
         litter[] = {{"ACE_MedicalLitter_gloves"}};
     };

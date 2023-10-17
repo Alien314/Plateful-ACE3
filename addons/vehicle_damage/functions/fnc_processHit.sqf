@@ -1,6 +1,6 @@
-#include "script_component.hpp"
+#include "..\script_component.hpp"
 /*
- * Author: Dani (TCVM)
+ * Author: tcvm
  * Process hit by projectile against vehicle and apply appropiate damage to part.
  *
  * Arguments:
@@ -137,6 +137,7 @@ if (_collision) then {
 
 private _injuryChance = 0;
 private _injuryCount = 0;
+if (!GVAR(aceMedLoaded)) then {
 switch (_warheadType) do {
     case WARHEAD_TYPE_AP: {
         _injuryChance = (_ammoEffectiveness * 2) min 1;
@@ -156,6 +157,7 @@ switch (_warheadType) do {
     };
 };
 _injuryChance = _injuryChance * _penChance;
+};
 
 if (_warheadType isNotEqualTo WARHEAD_TYPE_AP && _indirectHit == 0) then { _injuryChance = 0;};
 
