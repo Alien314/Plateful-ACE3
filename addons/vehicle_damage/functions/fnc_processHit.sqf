@@ -225,7 +225,7 @@ switch (_hitArea) do {
         };
 
         // slightly lower injury chance since this hit the engine block
-        [_vehicle, _injuryChance, _injuryCount, _injurer, [0.2, 0.2, 0.2, 0.4]] call FUNC(injureOccupants);
+        if (!GVAR(aceMedLoaded)) then {[_vehicle, _injuryChance, _injuryCount, _injurer, [0.2, 0.2, 0.2, 0.4]] call FUNC(injureOccupants);};
         [_vehicle, _chanceOfFire, _cookoffIntensity, _injurer, _hitArea, false] call FUNC(handleCookoff);
     };
     case "hull": {
@@ -259,7 +259,7 @@ switch (_hitArea) do {
             [_vehicle] call FUNC(knockOut);
         };
 
-        [_vehicle, _injuryChance, _injuryCount, _injurer, [1, 0.4, 0.4, 1]] call FUNC(injureOccupants);
+        if (!GVAR(aceMedLoaded)) then {[_vehicle, _injuryChance, _injuryCount, _injurer, [1, 0.4, 0.4, 1]] call FUNC(injureOccupants);};
 
         private _hash = _vehicle getVariable [QGVAR(hitpointHash), []];
         private _hashKeys = [_hash] call CBA_fnc_hashKeys;
@@ -341,7 +341,7 @@ switch (_hitArea) do {
             _vehicle setVariable [QGVAR(canShoot), false];
         };
 
-        [_vehicle, _injuryChance, _injuryCount, _injurer, [0.5, 1.5, 1.5, 0.8]] call FUNC(injureOccupants);
+        if (!GVAR(aceMedLoaded)) then {[_vehicle, _injuryChance, _injuryCount, _injurer, [0.5, 1.5, 1.5, 0.8]] call FUNC(injureOccupants);};
         [_vehicle, _chanceOfFire, _cookoffIntensity, _injurer, "", true] call FUNC(handleCookoff);
     };
     case "gun": {
