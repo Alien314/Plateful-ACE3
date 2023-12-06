@@ -57,8 +57,14 @@
         };
     };
     [QGVAR(plateDamage), {
+        if !(isDamageAllowed (_this # 0)) exitWith {};
         _this call diw_armor_plates_main_fnc_receiveDamage;
-    }] call CBA_fnc_addEventHandlerArgs;
+    }] call CBA_fnc_addEventHandler;
+    [QGVAR(vanillaDamage), {
+		private _unit = (_this # 0);
+        if !(isDamageAllowed _unit) exitWith {};
+		_unit setHitPointDamage (_this - _unit);
+    }] call CBA_fnc_addEventHandler;
 
     // init eject from destroyed vehicle
     {

@@ -56,7 +56,7 @@ private _injuryCount = 0;
 
     if (_indexToInjure >= 0) then {
         private _casualty = _vehicleCrew select (_crewInjuryIndices select _indexToInjure);
-        if (alive _casualty) then {
+        if (alive _casualty && {isDamageAllowed _casualty}) then {
             _injuryCount = _injuryCount + 1;
             private _indexCount = count _crewInjuryIndices;
             if (_indexCount >= 0) then {
