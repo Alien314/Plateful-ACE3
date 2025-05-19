@@ -288,6 +288,13 @@ class CfgVehicles {
         function = QFUNC(moduleUnconscious);
         icon = QPATHTOF(UI\Icon_Module_Zeus_Unconscious_ca.paa);
     };
+    class GVAR(moduleAIUnconscious): GVAR(moduleBase) {
+        curatorCanAttach = 1;
+        category = QGVAR(Medical);
+        displayName = CSTRING(ModuleAIUnconscious_DisplayName);
+        function = QFUNC(moduleAIUnconscious);
+        icon = QPATHTOF(UI\Icon_Module_Zeus_Unconscious_ca.paa);
+    };
     class GVAR(moduleGarrison): GVAR(moduleBase) {
         curatorCanAttach = 1;
         category = QGVAR(AI);
