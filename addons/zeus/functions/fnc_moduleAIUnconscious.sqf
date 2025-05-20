@@ -42,14 +42,19 @@ if (isNil QEFUNC(medical,setUnconscious)) then {
 
 				private _unconscious = GETVAR(_unit,ACE_isUnconscious,false);
 
-				// Set on wakeup, to make permanent if unit was knocked out with the other module
+				// Set true on wakeup, to make permanent if unit was knocked out with the other module
 				if (_unconscious) exitWith {
 					[{!(GETVAR(_this,ACE_isUnconscious,false))}, {
 						[{_this setVariable [QEGVAR(medical_statemachine,AIUnconsciousness), true, true];}, _this, 0.1] call CBA_fnc_waitAndExecute;
 					}, _unit] call CBA_fnc_waitUntilAndExecute;
+                    [
+                        [format[LSTRING(showAIUnconVar_hint), name _unit, ELSTRING(Common,Enabled)]],
+                    true] call CBA_fnc_notify;
 				};
-				if (_specified) then {_unit setVariable [QEGVAR(medical_statemachine,AIUnconsciousness), nil, true];};
-				_unit setVariable [QEGVAR(medical_statemachine,AIUnconsciousness), true, true];
+				_unit setVariable [QEGVAR(medical_statemachine,AIUnconsciousness), ([true,nil] select _specified), true];
+                [
+                    [format[LSTRING(showAIUnconVar_hint), name _unit, ([ELSTRING(Common,Enabled),ELSTRING(Common,Disabled)] select _specified)]],
+                true] call CBA_fnc_notify;
             };
         };
     };

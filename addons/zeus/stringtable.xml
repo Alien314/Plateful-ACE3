@@ -1514,6 +1514,9 @@
         <Key ID="STR_ACE_Zeus_ModuleAIUnconscious_DisplayName">
             <English>Enable Specific AI Unit Unconsciousness</English>
         </Key>
+        <Key ID="STR_ACE_Zeus_showAIUnconVar_hint">
+            <English>%1 AI unconsciousness: %2</English>
+        </Key>
         <Key ID="STR_ACE_Zeus_ModuleUnloadFromCargo_DisplayName">
             <English>Unload from cargo</English>
             <French>Décharger de la cargaison</French>
