@@ -197,6 +197,9 @@
             <Chinesesimp>菜单"%1"</Chinesesimp>
             <Turkish>"%1" menü</Turkish>
         </Key>
+        <Key ID="STR_ACE_Zeus_ModuleAIUnconscious_DisplayName">
+            <English>Enable Specific AI Unit Unconsciousness</English>
+        </Key>
         <Key ID="STR_ACE_Zeus_ModuleAddFullACEArsenal_DisplayName">
             <English>Add full ACE Arsenal</English>
             <Czech>Přidat plný ACE Arzenál</Czech>
@@ -1511,12 +1514,6 @@
             <Turkish>Bayıltmayı Aç/Kapat</Turkish>
             <Hungarian>Eszméletlen állapot váltása</Hungarian>
         </Key>
-        <Key ID="STR_ACE_Zeus_ModuleAIUnconscious_DisplayName">
-            <English>Enable Specific AI Unit Unconsciousness</English>
-        </Key>
-        <Key ID="STR_ACE_Zeus_showAIUnconVar_hint">
-            <English>%1 AI unconsciousness: %2</English>
-        </Key>
         <Key ID="STR_ACE_Zeus_ModuleUnloadFromCargo_DisplayName">
             <English>Unload from cargo</English>
             <French>Décharger de la cargaison</French>
@@ -2095,6 +2092,9 @@
             <Chinese>透露給盟軍</Chinese>
             <Chinesesimp>透露给友军</Chinesesimp>
             <Hungarian>Feltárás a szövetségeseknek</Hungarian>
+        </Key>
+        <Key ID="STR_ACE_Zeus_showAIUnconVar_hint">
+            <English>%1 AI unconsciousness: %2</English>
         </Key>
     </Package>
 </Project>
