@@ -48,12 +48,12 @@ if (isNil QEFUNC(medical,setUnconscious)) then {
 						[{_this setVariable [QEGVAR(medical_statemachine,AIUnconsciousness), true, true];}, _this, 0.1] call CBA_fnc_waitAndExecute;
 					}, _unit] call CBA_fnc_waitUntilAndExecute;
                     [
-                        [format[LSTRING(showAIUnconVar_hint), name _unit, ELSTRING(Common,Enabled)]],
+                        [format[LLSTRING(showAIUnconVar_hint), name _unit, LELSTRING(Common,Enabled)]],
                     true] call CBA_fnc_notify;
 				};
 				_unit setVariable [QEGVAR(medical_statemachine,AIUnconsciousness), ([true,nil] select _specified), true];
                 [
-                    [format[LSTRING(showAIUnconVar_hint), name _unit, ([ELSTRING(Common,Enabled),ELSTRING(Common,Disabled)] select _specified)]],
+                    [format[LLSTRING(showAIUnconVar_hint), name _unit, ([LELSTRING(Common,Enabled),LELSTRING(Common,Disabled)] select _specified)]],
                 true] call CBA_fnc_notify;
             };
         };

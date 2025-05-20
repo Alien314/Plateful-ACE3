@@ -43,6 +43,7 @@ PREP(moduleTeleportPlayers);
 PREP(moduleToggleFlashlight);
 PREP(moduleToggleNvg);
 PREP(moduleUnconscious);
+PREP(moduleAIUnconscious);
 PREP(moduleUnGarrison);
 PREP(moduleUnloadFromCargo);
 PREP(moduleZeusSettings);
