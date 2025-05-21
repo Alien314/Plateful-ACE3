@@ -37,21 +37,21 @@ if (isNil QEFUNC(medical,setUnconscious)) then {
             if !(alive _unit) then {
                 [LSTRING(OnlyAlive)] call FUNC(showMessage);
             } else {
-				// Get whether unit AIUncon variable is enabled
-				private _specified = (_unit getVariable [QEGVAR(medical_statemachine,AIUnconsciousness), false]);
+                // Get whether unit AIUncon variable is enabled
+                private _specified = (_unit getVariable [QEGVAR(medical_statemachine,AIUnconsciousness), false]);
 
-				private _unconscious = GETVAR(_unit,ACE_isUnconscious,false);
+                private _unconscious = GETVAR(_unit,ACE_isUnconscious,false);
 
-				// Set true on wakeup, to make permanent if unit was knocked out with the other module
-				if (_unconscious) exitWith {
-					[{!(GETVAR(_this,ACE_isUnconscious,false))}, {
-						[{_this setVariable [QEGVAR(medical_statemachine,AIUnconsciousness), true, true];}, _this, 0.1] call CBA_fnc_waitAndExecute;
-					}, _unit] call CBA_fnc_waitUntilAndExecute;
+                // Set true on wakeup, to make permanent if unit was knocked out with the other module
+                if (_unconscious) exitWith {
+                    [{!(GETVAR(_this,ACE_isUnconscious,false))}, {
+                        [{_this setVariable [QEGVAR(medical_statemachine,AIUnconsciousness), true, true];}, _this, 0.1] call CBA_fnc_waitAndExecute;
+                    }, _unit] call CBA_fnc_waitUntilAndExecute;
                     [
                         [format[LLSTRING(showAIUnconVar_hint), name _unit, LELSTRING(Common,Enabled)]],
                     true] call CBA_fnc_notify;
-				};
-				_unit setVariable [QEGVAR(medical_statemachine,AIUnconsciousness), ([true,nil] select _specified), true];
+                };
+                _unit setVariable [QEGVAR(medical_statemachine,AIUnconsciousness), ([true,nil] select _specified), true];
                 [
                     [format[LLSTRING(showAIUnconVar_hint), name _unit, ([LELSTRING(Common,Enabled),LELSTRING(Common,Disabled)] select _specified)]],
                 true] call CBA_fnc_notify;

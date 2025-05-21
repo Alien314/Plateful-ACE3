@@ -37,21 +37,21 @@ if (isNil QEFUNC(medical,setUnconscious)) then {
             if !(alive _unit) then {
                 [LSTRING(OnlyAlive)] call FUNC(showMessage);
             } else {
-				// Get whether global or unit AIUncon variable is enabled
-				private _specified = (EGVAR(medical_statemachine,AIUnconsciousness) || {(_unit getVariable [QEGVAR(medical_statemachine,AIUnconsciousness), false])});
+                // Get whether global or unit AIUncon variable is enabled
+                private _specified = (EGVAR(medical_statemachine,AIUnconsciousness) || {(_unit getVariable [QEGVAR(medical_statemachine,AIUnconsciousness), false])});
 
                 private _unconscious = GETVAR(_unit,ACE_isUnconscious,false);
                 if (!_unconscious && {!_specified}) then {
-					// Set unit AIUncon var if unspecified
-				    _unit setVariable [QEGVAR(medical_statemachine,AIUnconsciousness), true, true];
+                    // Set unit AIUncon var if unspecified
+                    _unit setVariable [QEGVAR(medical_statemachine,AIUnconsciousness), true, true];
                 };
                 // Function handles locality for me
                 [_unit, !_unconscious, 10e10] call EFUNC(medical,setUnconscious);
 
-				// nil unit AIUncon var on wakeup if unspecified
-				if (!_specified) then {
-					[{!(GETVAR(_this,ACE_isUnconscious,false))}, {_this setVariable [QEGVAR(medical_statemachine,AIUnconsciousness), nil, true];}, _unit] call CBA_fnc_waitUntilAndExecute;
-				};
+                // nil unit AIUncon var on wakeup if unspecified
+                if (!_specified) then {
+                    [{!(GETVAR(_this,ACE_isUnconscious,false))}, {_this setVariable [QEGVAR(medical_statemachine,AIUnconsciousness), nil, true];}, _unit] call CBA_fnc_waitUntilAndExecute;
+                };
             };
         };
     };
